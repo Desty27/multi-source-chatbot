@@ -3,9 +3,20 @@ if not os.path.exists('/usr/bin/tesseract'):
     os.system('apt-get update && apt-get install -y tesseract-ocr')
 import streamlit as st
 import tempfile
-import os
 from src.chatbot import ChatBot
 from src.file_processor import process_uploaded_file
+import subprocess
+
+# Install system dependencies
+def install_system_deps():
+    try:
+        subprocess.run(['apt-get', 'update'], check=True)
+        subprocess.run(['apt-get', 'install', '-y', 'tesseract-ocr', 'libtesseract-dev'], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error installing system dependencies: {e}")
+
+if not os.path.exists('/usr/bin/tesseract'):
+    install_system_deps()
 
 # App config
 st.set_page_config(
