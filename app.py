@@ -1,3 +1,6 @@
+import os
+if not os.path.exists('/usr/bin/tesseract'):
+    os.system('apt-get update && apt-get install -y tesseract-ocr')
 import streamlit as st
 import tempfile
 import os
